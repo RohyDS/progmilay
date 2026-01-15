@@ -1,0 +1,70 @@
+creation base : 
+        Oracle :  ROUTE 
+                 -idRoute 
+                 -nom 
+                 -point de depart 
+                 -point destination 
+                 - distance (km)
+                 -largeur 
+                 -obstacle
+        
+
+                SOUS-LALANA: 
+                -id 
+                -identification
+                -idRouteMere
+                -idRouteFille
+                -numero
+
+                POINT : 
+                    
+                    -x
+                    -y 
+
+
+        Postgres : VOITURE
+                    -vitesseMax 
+                    -largeur
+                    -types
+                    -largeur
+
+
+sudo -i -u postgres
+psql
+
+-- Créer un utilisateur
+CREATE USER voyage WITH PASSWORD 'voyage123';
+
+-- Créer une base de données
+CREATE DATABASE voyage_db OWNER voyage;
+
+\du        -- lister tous les utilisateurs
+\l         -- lister toutes les bases
+
+
+il faut quiter avant de changer utilisateur 
+\q 
+se connecter avec utilisateur depuis terminale : 
+psql -h localhost -U voyage -d voyage_db
+
+
+Mot de passe : voyage123
+
+
+
+
+-- Donner tous les droits à l'utilisateur sur la base
+GRANT ALL PRIVILEGES ON DATABASE etudiant_db TO idealy;
+
+
+
+positions_routes = [
+    (50, 50, "horizontal"),   # RN2
+    (802, 172, "verticale"),    # RN44
+    (50, 300, "horizontal"),  # RN1
+    (401, 300, "horizontal")   # RN7
+]
+CREATE USER voyage
+IDENTIFIED BY voyage123
+DEFAULT TABLESPACE temp
+QUOTA UNLIMITED ON users;
