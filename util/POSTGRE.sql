@@ -1,5 +1,3 @@
-// postgresql
-
 -- Création de la table
 CREATE TABLE lalana(
     id_lalana SERIAL PRIMARY KEY,
@@ -45,9 +43,6 @@ VALUES (100, 2.0, 4.5, 'Bus Mercedes', 'bus');
 
 
 
--- Ajout des colonnes reservoir et consommation à la table voiture
-ALTER TABLE voiture ADD COLUMN reservoir DECIMAL(10,2) DEFAULT 50.0;
-ALTER TABLE voiture ADD COLUMN consommation DECIMAL(10,2) DEFAULT 7.0;
 
 -- Mise à jour des voitures existantes avec des valeurs réalistes
 UPDATE voiture 
@@ -73,4 +68,3 @@ WHERE nom = 'Camion Renault';
 UPDATE voiture 
 SET reservoir = 250, consommation = 20.0 
 WHERE nom = 'Bus Mercedes';
-//
