@@ -13,7 +13,7 @@ public class VoitureDAO {
     public static List<Voiture> getAllVoitures(Connection conn) throws SQLException {
         List<Voiture> voitures = new ArrayList<>();
         ResultSet rs = conn.createStatement().executeQuery(
-            "SELECT id, vitesse_max, largeur, longueur, nom, type, reservoir, consommation FROM voiture"
+            "SELECT id, vitesse_max, largeur, longueur, nom, type, reservoir, consommation, taux_rafraichissement FROM voiture"
         );
         
         while(rs.next()){
@@ -26,6 +26,7 @@ public class VoitureDAO {
             v.setType(rs.getString("type"));
             v.setReservoir(rs.getDouble("reservoir"));
             v.setConsommation(rs.getDouble("consommation"));
+            v.setTauxRafraichissement(rs.getDouble("taux_rafraichissement"));
             voitures.add(v);
         }
         rs.close();

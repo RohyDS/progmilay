@@ -37,7 +37,13 @@ public class Fonction {
             double obstacleEnd = Math.min(o.getKilometreArrivee(), longueurRoute);
             if (obstacleEnd > obstacleStart) {
                 double distanceObstacle = obstacleEnd - obstacleStart;
-                double vitesseObstacle = vitesseNormale * (100.0 - o.getTauxRetablissement()) / 100.0;
+                
+                // Calcul du ralentissement effectif avec le taux de rafraîchissement (aptitude) de la voiture
+                // ralentissement = max(0, taux_obstacle - taux_rafraichissement_voiture)
+                double tauxRalentissementObstacle = 100.0 - o.getTauxRetablissement(); // ex: 80%
+                double tauxRalentissementEffectif = Math.max(0, tauxRalentissementObstacle - voiture.getTauxRafraichissement()); // ex: 80% - 70% = 10%
+                
+                double vitesseObstacle = vitesseNormale * (100.0 - tauxRalentissementEffectif) / 100.0;
                 duree += distanceObstacle / vitesseObstacle;
                 kmCourant = obstacleEnd;
             }
@@ -101,7 +107,12 @@ public class Fonction {
             
             if (obstacleEnd > obstacleStart) {
                 double distanceObstacle = obstacleEnd - obstacleStart;
-                double vitesseObstacle = vitesse * (100.0 - o.getTauxRetablissement()) / 100.0;
+                
+                // Calcul du ralentissement effectif (même logique que calculerDuree)
+                double tauxRalentissementObstacle = o.getTauxRetablissement();
+                double tauxRalentissementEffectif = Math.max(0, tauxRalentissementObstacle - voiture.getTauxRafraichissement());
+                
+                double vitesseObstacle = vitesse * (100.0 - tauxRalentissementEffectif) / 100.0;
                 duree += distanceObstacle / vitesseObstacle;
                 kmCourant = obstacleEnd;
             }

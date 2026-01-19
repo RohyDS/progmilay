@@ -89,9 +89,19 @@ public class FenetreSimulation extends JFrame {
 
         voiture.setVitesseMoyenne(vitesseMoyenne);
 
+        double tauxRafraichissement;
+        try {
+            tauxRafraichissement = Double.parseDouble(panelConfig.getTxtTauxRafraichissement().getText());
+        } catch (NumberFormatException e) {
+            panelResultat.zoneResultat.setText("❌ Taux de rafraîchissement invalide !");
+            return;
+        }
+        voiture.setTauxRafraichissement(tauxRafraichissement);
+
         // Affichage info voiture
         panelResultat.zoneResultat.append(
             "🚗 Voiture : " + voiture.getNom() + " (" + voiture.getType() + ")\n" +
+            "🛡️ Aptitude : " + tauxRafraichissement + "%\n" +
             "⚡ Vitesse max : " + voiture.getVitesseMax() + " km/h | " +
             "Vitesse moyenne : " + vitesseMoyenne + " km/h\n" +
             "⛽ Réservoir : " + voiture.getReservoir() + " L | " +

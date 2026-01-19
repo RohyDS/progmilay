@@ -13,13 +13,15 @@ public class Voiture {
     private String type;
     private double reservoir;
     private double consommation;
+    private double tauxRafraichissement;
 
     public Voiture() {}
 
     public Voiture(int id, double vitesseMax, double vitesseMoyenne,
                    double largeur, double longueur,
                    String nom, String type,
-                   double reservoir, double consommation) {
+                   double reservoir, double consommation,
+                   double tauxRafraichissement) {
 
         this.id = id;
         this.vitesseMax = vitesseMax;
@@ -30,6 +32,7 @@ public class Voiture {
         this.type = type;
         this.reservoir = reservoir;
         this.consommation = consommation;
+        this.tauxRafraichissement = tauxRafraichissement;
     }
 
     /* =======================
@@ -62,6 +65,9 @@ public class Voiture {
 
     public double getConsommation() { return consommation; }
     public void setConsommation(double consommation) { this.consommation = consommation; }
+
+    public double getTauxRafraichissement() { return tauxRafraichissement; }
+    public void setTauxRafraichissement(double tauxRafraichissement) { this.tauxRafraichissement = tauxRafraichissement; }
 
     /* CARBURANT */
 
@@ -113,8 +119,12 @@ public class Voiture {
 
             if (fin > debut) {
                 double dObstacle = fin - debut;
-                double vitesseReduite =
-                        vitesseMoyenne * (100.0 - obs.getTauxRetablissement()) / 100.0;
+                
+                // Calcul du ralentissement effectif avec l'aptitude (tauxRafraichissement)
+                double tauxRalentissementObstacle = obs.getTauxRetablissement();
+                double tauxRalentissementEffectif = Math.max(0, tauxRalentissementObstacle - this.tauxRafraichissement);
+                
+                double vitesseReduite = vitesseMoyenne * (100.0 - tauxRalentissementEffectif) / 100.0;
 
                 sommeVitesseDistance += vitesseReduite * dObstacle;
                 kmCourant = fin;

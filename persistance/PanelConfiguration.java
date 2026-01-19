@@ -14,6 +14,7 @@ public class PanelConfiguration extends JPanel {
     public JButton btnCalculer;
     private JTextField txtVitesseMoyenne;
     private JTextField txtHeureDepart;  // Nouveau champ pour l'heure de départ
+    private JTextField txtTauxRafraichissement; // Nouveau champ pour l'aptitude de la voiture
 
     public PanelConfiguration(List<Voiture> voitures, List<Point> points) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -40,6 +41,13 @@ public class PanelConfiguration extends JPanel {
         add(comboVoiture);
         add(Box.createVerticalStrut(20));
 
+        // Section Taux de Rafraîchissement (Aptitude)
+        add(creerSectionLabel("🛡️ Taux Rafraîchissement / Aptitude (%)"));
+        txtTauxRafraichissement = creerTextFieldStylee();
+        txtTauxRafraichissement.setToolTipText("Capacité de la voiture à ignorer les obstacles (ex: 70)");
+        add(txtTauxRafraichissement);
+        add(Box.createVerticalStrut(20));
+
         // Section Vitesse
         add(creerSectionLabel("⚡ Vitesse Moyenne (km/h)"));
         txtVitesseMoyenne = creerTextFieldStylee();
@@ -54,6 +62,21 @@ public class PanelConfiguration extends JPanel {
         txtHeureDepart.setToolTipText("Format : HH:mm (ex: 08:00, 14:30)");
         add(txtHeureDepart);
         add(Box.createVerticalStrut(20));
+
+        comboVoiture.addActionListener(e -> {
+            Voiture selected = (Voiture) comboVoiture.getSelectedItem();
+            if (selected != null) {
+                txtTauxRafraichissement.setText(String.valueOf(selected.getTauxRafraichissement()));
+                txtVitesseMoyenne.setText(String.valueOf(selected.getVitesseMoyenne() > 0 ? selected.getVitesseMoyenne() : selected.getVitesseMax() * 0.8));
+            }
+        });
+
+        // Initialiser avec la première voiture
+        if (comboVoiture.getItemCount() > 0) {
+            Voiture first = comboVoiture.getItemAt(0);
+            txtTauxRafraichissement.setText(String.valueOf(first.getTauxRafraichissement()));
+            txtVitesseMoyenne.setText(String.valueOf(first.getVitesseMoyenne() > 0 ? first.getVitesseMoyenne() : first.getVitesseMax() * 0.8));
+        }
 
         // Section Point de départ
         add(creerSectionLabel("📍 Point de Départ"));
@@ -137,5 +160,9 @@ public class PanelConfiguration extends JPanel {
     
     public JTextField getTxtHeureDepart() {
         return txtHeureDepart;
+    }
+
+    public JTextField getTxtTauxRafraichissement() {
+        return txtTauxRafraichissement;
     }
 }

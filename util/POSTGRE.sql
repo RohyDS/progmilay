@@ -14,7 +14,8 @@ CREATE TABLE voiture (
     nom VARCHAR(100) NOT NULL,  
     type VARCHAR(50) NOT NULL,
     reservoir DECIMAL(10,2) NOT NULL DEFAULT 50.0,
-    consommation DECIMAL(10,2) NOT NULL DEFAULT 7.0
+    consommation DECIMAL(10,2) NOT NULL DEFAULT 7.0,
+    taux_rafraichissement DECIMAL(10,2) NOT NULL DEFAULT 0.0
 );
 
 -- Insertion des données
@@ -30,14 +31,18 @@ SELECT * FROM lalana;
 -- ==========================================
 -- Insertion voitures     PGSQL
 -- ==========================================
-INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type) 
-VALUES (120, 1.8, 4.2, 'Toyota Corolla', 'voiture');
+INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type, taux_rafraichissement) 
+VALUES (120, 1.8, 4.2, 'Toyota Corolla', 'voiture', 10.0);
 
-INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type) 
-VALUES (90, 2.5, 6.0, 'Camion Renault', 'camion');
+INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type, taux_rafraichissement) 
+VALUES (90, 2.5, 6.0, 'Camion Renault', 'camion', 40.0);
 
-INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type) 
-VALUES (100, 2.0, 4.5, 'Bus Mercedes', 'bus');
+INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type, taux_rafraichissement) 
+VALUES (100, 2.0, 4.5, 'Bus Mercedes', 'bus', 25.0);
+
+-- Ajout d'une voiture tout-terrain avec un fort taux de rafraîchissement
+INSERT INTO voiture (vitesse_max, largeur, longueur, nom, type, reservoir, consommation, taux_rafraichissement) 
+VALUES (110, 1.9, 4.8, 'Toyota Land Cruiser', '4x4', 90, 12.0, 70.0);
 
 
 
